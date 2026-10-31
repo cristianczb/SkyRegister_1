@@ -1,0 +1,15 @@
+EVIDENCIA GA7-220501096-AA3-EV01 — SKYREGISTER
+
+Contenido incluido:
+- Proyecto web Java/Spring Boot con vistas Thymeleaf.
+- Persistencia JDBC con base de datos H2.
+- Operaciones de gestión de drones y registro/consulta de vuelos.
+- Datos SQL de estructura y muestra.
+- README con instrucciones para abrir en IntelliJ IDEA y ejecutar.
+- ENLACE_REPOSITORIO.txt para registrar la dirección real de GitHub.
+
+Antes de entregar:
+1. Abre y ejecuta el proyecto en IntelliJ IDEA.
+2. Publica el proyecto en GitHub.
+3. Completa ENLACE_REPOSITORIO.txt con el URL real del repositorio.
+4. Comprueba que el ZIP tenga el nombre solicitado por el instructor: NOMBRE_APELLIDO_GA7-220501096-AA3-EV01.zip.

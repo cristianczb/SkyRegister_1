@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+<header th:fragment="header" class="topbar">
+    <a class="brand" th:href="@{/}" aria-label="SkyRegister inicio">
+        <span class="brand-mark">S</span>
+        <span>SkyRegister<small>Gestión de operaciones aéreas</small></span>
+    </a>
+    <nav class="main-nav" aria-label="Navegación principal">
+        <a th:href="@{/}" th:classappend="${activePage == 'home'} ? ' active' : ''">Resumen</a>
+        <a th:href="@{/drones}" th:classappend="${activePage == 'drones'} ? ' active' : ''">Drones</a>
+        <a th:href="@{/flights}" th:classappend="${activePage == 'flights'} ? ' active' : ''">Vuelos</a>
+    </nav>
+</header>
+<div th:fragment="alerts" class="alerts">
+    <div th:if="${successMessage}" class="alert success" role="status" th:text="${successMessage}"></div>
+    <div th:if="${errorMessage}" class="alert error" role="alert" th:text="${errorMessage}"></div>
+</div>
+<footer th:fragment="footer" class="footer">
+    <span>SkyRegister · Proyecto académico</span>
+    <span>Aplicación web con Java, Spring Boot y JDBC</span>
+</footer>
+</body>
+</html>

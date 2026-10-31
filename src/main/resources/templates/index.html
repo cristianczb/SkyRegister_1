@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resumen | SkyRegister</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+<main class="container">
+    <section class="welcome-row">
+        <div>
+            <p class="eyebrow">CENTRO DE OPERACIONES</p>
+            <h1>Resumen general</h1>
+            <p class="muted">Controla la flota y consulta las próximas operaciones desde un solo lugar.</p>
+        </div>
+        <a class="button primary" th:href="@{/flights/new}">＋ Programar vuelo</a>
+    </section>
+
+    <section class="stats-grid" aria-label="Indicadores generales">
+        <article class="stat-card">
+            <span class="stat-icon blue">✈</span>
+            <p class="stat-label">Drones registrados</p>
+            <strong th:text="${totalDrones}">0</strong>
+            <span class="stat-foot">Elementos en la flota</span>
+        </article>
+        <article class="stat-card">
+            <span class="stat-icon green">✓</span>
+            <p class="stat-label">Drones disponibles</p>
+            <strong th:text="${availableDrones}">0</strong>
+            <span class="stat-foot">Listos para operar</span>
+        </article>
+        <article class="stat-card">
+            <span class="stat-icon violet">◷</span>
+            <p class="stat-label">Vuelos registrados</p>
+            <strong th:text="${totalFlights}">0</strong>
+            <span class="stat-foot">Historial de operaciones</span>
+        </article>
+        <article class="stat-card">
+            <span class="stat-icon amber">↗</span>
+            <p class="stat-label">Vuelos programados</p>
+            <strong th:text="${scheduledFlights}">0</strong>
+            <span class="stat-foot">Pendientes de ejecución</span>
+        </article>
+    </section>
+
+    <section class="content-card">
+        <div class="section-heading">
+            <div>
+                <h2>Vuelos recientes</h2>
+                <p class="muted">Consulta rápida de las últimas operaciones registradas.</p>
+            </div>
+            <a class="text-link" th:href="@{/flights}">Ver todos →</a>
+        </div>
+        <div class="table-wrap" th:if="${!#lists.isEmpty(recentFlights)}">
+            <table>
+                <thead><tr><th>Dron</th><th>Ruta</th><th>Fecha y hora</th><th>Duración</th><th>Estado</th></tr></thead>
+                <tbody>
+                <tr th:each="flight : ${recentFlights}">
+                    <td class="strong" th:text="${flight.droneName}">Aquila 01</td>
+                    <td><span th:text="${flight.origin}">Origen</span><span class="route-arrow"> → </span><span th:text="${flight.destination}">Destino</span></td>
+                    <td th:text="${#temporals.format(flight.scheduledAt, 'dd/MM/yyyy HH:mm')}">24/10/2026 09:00</td>
+                    <td th:text="|${flight.durationMinutes} min|">45 min</td>
+                    <td><span class="status-pill" th:classappend="${flight.status == 'Programado' ? ' scheduled' : (flight.status == 'Completado' ? ' completed' : ' neutral')}" th:text="${flight.status}">Programado</span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="empty-state" th:if="${#lists.isEmpty(recentFlights)}">
+            <h3>Aún no hay vuelos</h3><p>Registra tu primer vuelo para verlo en este tablero.</p>
+            <a class="button primary" th:href="@{/flights/new}">Programar primer vuelo</a>
+        </div>
+    </section>
+
+    <section class="quick-links">
+        <a class="quick-card" th:href="@{/drones}"><span class="quick-icon">✈</span><span><strong>Administrar drones</strong><small>Registrar, editar y consultar la flota</small></span><span class="quick-arrow">→</span></a>
+        <a class="quick-card" th:href="@{/flights}"><span class="quick-icon">◷</span><span><strong>Gestionar vuelos</strong><small>Revisar y programar operaciones</small></span><span class="quick-arrow">→</span></a>
+    </section>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

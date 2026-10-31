@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Drones | SkyRegister</title><link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+<main class="container">
+    <div th:replace="~{fragments/layout :: alerts}"></div>
+    <section class="page-heading">
+        <div><p class="eyebrow">INVENTARIO</p><h1>Gestión de drones</h1><p class="muted">Administra los equipos, su disponibilidad y el nivel de batería.</p></div>
+        <a class="button primary" th:href="@{/drones/new}">＋ Registrar dron</a>
+    </section>
+    <section class="content-card">
+        <div class="section-heading"><div><h2>Flota registrada</h2><p class="muted" th:text="|${#lists.size(drones)} equipo(s) en el inventario|">Equipos en el inventario</p></div></div>
+        <div class="table-wrap" th:if="${!#lists.isEmpty(drones)}">
+            <table>
+                <thead><tr><th>Nombre del dron</th><th>Modelo</th><th>N.º de serie</th><th>Batería</th><th>Estado</th><th>Mantenimiento</th><th>Acciones</th></tr></thead>
+                <tbody>
+                <tr th:each="drone : ${drones}">
+                    <td><div class="drone-name"><span class="drone-avatar">✈</span><span class="strong" th:text="${drone.name}">Aquila 01</span></div></td>
+                    <td th:text="${drone.model}">Modelo</td>
+                    <td><code th:text="${drone.serialNumber}">SR-DR-001</code></td>
+                    <td><div class="battery-cell"><div class="battery-track"><span th:style="|width:${drone.batteryLevel}%|" th:classappend="${drone.batteryLevel &lt; 25 ? ' low' : ''}"></span></div><small th:text="|${drone.batteryLevel}%|">94%</small></div></td>
+                    <td><span class="status-pill" th:classappend="${drone.status == 'Disponible' ? ' completed' : (drone.status == 'En mantenimiento' ? ' maintenance' : ' neutral')}" th:text="${drone.status}">Disponible</span></td>
+                    <td th:text="${drone.lastMaintenance == null ? 'Sin registro' : #temporals.format(drone.lastMaintenance, 'dd/MM/yyyy')}">15/09/2026</td>
+                    <td><div class="actions"><a class="button small secondary" th:href="@{/drones/{id}/edit(id=${drone.id})}">Editar</a>
+                        <form th:action="@{/drones/{id}/delete(id=${drone.id})}" method="post" onsubmit="return confirm('¿Seguro que deseas eliminar este dron?');"><button class="button small danger" type="submit">Eliminar</button></form></div></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="empty-state" th:if="${#lists.isEmpty(drones)}"><h3>Tu flota está vacía</h3><p>Agrega el primer dron para comenzar a administrar los equipos.</p><a class="button primary" th:href="@{/drones/new}">Registrar dron</a></div>
+    </section>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

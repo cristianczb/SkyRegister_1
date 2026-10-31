@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vuelos | SkyRegister</title><link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+<main class="container">
+    <div th:replace="~{fragments/layout :: alerts}"></div>
+    <section class="page-heading"><div><p class="eyebrow">OPERACIONES</p><h1>Gestión de vuelos</h1><p class="muted">Consulta las rutas registradas y programa nuevas misiones.</p></div><a class="button primary" th:href="@{/flights/new}">＋ Programar vuelo</a></section>
+    <section class="content-card">
+        <div class="section-heading"><div><h2>Registro de operaciones</h2><p class="muted" th:text="|${#lists.size(flights)} vuelo(s) registrado(s)|">Vuelos registrados</p></div></div>
+        <div class="table-wrap" th:if="${!#lists.isEmpty(flights)}">
+            <table><thead><tr><th>Dron asignado</th><th>Origen y destino</th><th>Fecha y hora</th><th>Duración</th><th>Estado</th><th>Notas</th></tr></thead>
+                <tbody><tr th:each="flight : ${flights}">
+                    <td><div class="drone-name"><span class="drone-avatar">✈</span><span class="strong" th:text="${flight.droneName}">Aquila 01</span></div></td>
+                    <td><span th:text="${flight.origin}">Origen</span><span class="route-arrow"> → </span><span th:text="${flight.destination}">Destino</span></td>
+                    <td th:text="${#temporals.format(flight.scheduledAt, 'dd/MM/yyyy HH:mm')}">24/10/2026 09:00</td>
+                    <td th:text="|${flight.durationMinutes} min|">45 min</td>
+                    <td><span class="status-pill" th:classappend="${flight.status == 'Programado' ? ' scheduled' : (flight.status == 'Completado' ? ' completed' : ' neutral')}" th:text="${flight.status}">Programado</span></td>
+                    <td th:text="${#strings.isEmpty(flight.notes) ? '—' : flight.notes}">Notas</td>
+                </tr></tbody>
+            </table>
+        </div>
+        <div class="empty-state" th:if="${#lists.isEmpty(flights)}"><h3>No hay vuelos registrados</h3><p>Programa un vuelo para empezar a construir el historial de operaciones.</p><a class="button primary" th:href="@{/flights/new}">Programar vuelo</a></div>
+    </section>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

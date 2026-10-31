@@ -1,0 +1,25 @@
+ENLACE DEL REPOSITORIO REMOTO — EVIDENCIA GA7-220501096-AA3-EV01
+
+Después de crear el repositorio en GitHub y subir este proyecto, pega aquí la URL real.
+Ejemplo de formato (reemplaza USUARIO por tu nombre de usuario real):
+https://github.com/USUARIO/SkyRegister
+
+PASOS PARA PUBLICARLO DESDE LA TERMINAL DE INTELLIJ IDEA
+1. Entra a https://github.com y crea un repositorio llamado SkyRegister.
+2. Si ya tienes el proyecto local, crea el repositorio remoto vacío (no agregues README ni .gitignore, porque ya existen en el proyecto).
+3. Desde la terminal abierta en la carpeta SkyRegister ejecuta:
+
+   git status
+   git config user.name "TU NOMBRE"
+   git config user.email "TU_CORREO"
+   git add .
+   git commit -m "Codificación módulo web SkyRegister"
+   git branch -M main
+   git remote add origin https://github.com/USUARIO/SkyRegister.git
+   git push -u origin main
+
+4. Cambia TU NOMBRE y TU_CORREO por tu identidad real, y USUARIO por tu usuario de GitHub. Si ya existe un remoto, consulta `git remote -v` antes de usar `git remote add origin`. Si Git ya tiene configurada tu identidad, puedes omitir los dos comandos `git config`.
+5. Copia la dirección del repositorio del navegador y reemplaza el ejemplo de este archivo.
+6. Guarda los cambios. Si actualizaste el archivo después de publicar, vuelve a ejecutar `git add .`, `git commit -m "Agrega enlace del repositorio para la evidencia"` y `git push`.
+
+IMPORTANTE: la URL de ejemplo no es un repositorio real. La evidencia queda completa cuando pegues aquí el enlace de tu repositorio remoto publicado.
