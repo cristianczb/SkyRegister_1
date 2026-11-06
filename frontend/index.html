@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SkyRegister: plataforma de gestión de drones y operaciones aéreas.">
+    <title>SkyRegister | Gestión de operaciones</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Barra lateral de navegación principal -->
+    <aside class="sidebar" id="sidebar">
+        <a class="brand" href="#" aria-label="SkyRegister inicio">
+            <span class="brand-mark">S</span>
+            <span>SkyRegister<small>GESTIÓN AÉREA</small></span>
+        </a>
+        <div class="nav-label">MENÚ PRINCIPAL</div>
+        <nav class="navigation" aria-label="Navegación principal">
+            <button class="nav-link active" data-view="dashboard"><span>▦</span> Panel principal</button>
+            <button class="nav-link" data-view="drones"><span>◈</span> Drones</button>
+            <button class="nav-link" data-view="flights"><span>✈</span> Vuelos</button>
+            <button class="nav-link" data-view="clients"><span>♙</span> Clientes</button>
+            <button class="nav-link" data-view="reports"><span>▤</span> Reportes</button>
+            <button class="nav-link" data-view="profile"><span>◎</span> Mi perfil</button>
+        </nav>
+        <div class="sidebar-bottom">
+            <div class="status-dot"></div>
+            <span>Sistema operativo</span>
+            <small>v1.0.0</small>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">☰</button>
+            <div class="breadcrumb">SkyRegister <span>/</span> <strong id="breadcrumb-current">Panel principal</strong></div>
+            <div class="top-actions">
+                <span class="today" id="today-label"></span>
+                <button class="avatar" id="profile-shortcut" title="Ver perfil">CZ</button>
+            </div>
+        </header>
+
+        <section class="page-wrap">
+            <!-- Panel principal -->
+            <section class="view active" id="view-dashboard">
+                <div class="page-heading">
+                    <div><p class="eyebrow">RESUMEN GENERAL</p><h1>Panel principal</h1><p class="muted">Bienvenido a tu centro de operaciones aéreas.</p></div>
+                    <button class="button primary" data-action="new-flight">＋ Programar vuelo</button>
+                </div>
+                <div class="stats-grid">
+                    <article class="stat-card"><div class="stat-icon blue">◈</div><p>Drones registrados</p><strong id="stat-drones">8</strong><small class="positive">Flota administrada</small></article>
+                    <article class="stat-card"><div class="stat-icon green">✈</div><p>Vuelos registrados</p><strong id="stat-flights">24</strong><small class="positive">Operaciones de muestra</small></article>
+                    <article class="stat-card"><div class="stat-icon gold">♙</div><p>Clientes activos</p><strong id="stat-clients">12</strong><small class="positive">Cartera de clientes</small></article>
+                    <article class="stat-card"><div class="stat-icon violet">▤</div><p>Reportes generados</p><strong id="stat-reports">18</strong><small class="positive">Informes disponibles</small></article>
+                </div>
+                <div class="content-grid">
+                    <article class="panel">
+                        <div class="panel-heading"><div><h2>Vuelos recientes</h2><p class="muted">Últimas operaciones registradas</p></div><button class="text-button" data-view="flights">Ver todos →</button></div>
+                        <div class="table-wrap"><table><thead><tr><th>CÓDIGO</th><th>CLIENTE</th><th>FECHA</th><th>ESTADO</th></tr></thead><tbody id="recent-flights"></tbody></table></div>
+                    </article>
+                    <article class="panel quick-panel">
+                        <div class="panel-heading"><div><h2>Accesos rápidos</h2><p class="muted">Gestiona tu operación</p></div></div>
+                        <button class="quick-link" data-view="drones"><span class="quick-icon">◈</span><span><b>Administrar drones</b><small>Consulta y registra equipos</small></span><i>→</i></button>
+                        <button class="quick-link" data-view="flights"><span class="quick-icon">✈</span><span><b>Gestionar vuelos</b><small>Programa operaciones</small></span><i>→</i></button>
+                        <button class="quick-link" data-view="clients"><span class="quick-icon">♙</span><span><b>Ver clientes</b><small>Administra tus contactos</small></span><i>→</i></button>
+                        <button class="quick-link" data-view="reports"><span class="quick-icon">▤</span><span><b>Consultar reportes</b><small>Revisa la actividad</small></span><i>→</i></button>
+                    </article>
+                </div>
+                <div class="notice"><span>ⓘ</span><div><b>Entorno demostrativo</b><p>Los registros de esta versión se almacenan localmente en el navegador. Para producción, conecta el Front-End con los servicios del backend y la base de datos.</p></div></div>
+            </section>
+
+            <!-- Gestión de drones -->
+            <section class="view" id="view-drones">
+                <div class="page-heading"><div><p class="eyebrow">RECURSOS AÉREOS</p><h1>Gestión de drones</h1><p class="muted">Administra los equipos registrados en la plataforma.</p></div><button class="button primary" data-action="new-drone">＋ Registrar dron</button></div>
+                <div class="toolbar"><input class="search-input" id="drone-search" type="search" placeholder="Buscar por modelo o serial..." aria-label="Buscar drones"></div>
+                <article class="panel"><div class="table-wrap"><table><thead><tr><th>MODELO</th><th>NÚMERO DE SERIE</th><th>ESTADO</th><th>ACCIONES</th></tr></thead><tbody id="drone-table"></tbody></table></div></article>
+            </section>
+
+            <!-- Gestión de vuelos -->
+            <section class="view" id="view-flights">
+                <div class="page-heading"><div><p class="eyebrow">OPERACIÓN</p><h1>Gestión de vuelos</h1><p class="muted">Programa y consulta las operaciones realizadas.</p></div><button class="button primary" data-action="new-flight">＋ Programar vuelo</button></div>
+                <div class="toolbar"><input class="search-input" id="flight-search" type="search" placeholder="Buscar por código o cliente..." aria-label="Buscar vuelos"></div>
+                <article class="panel"><div class="table-wrap"><table><thead><tr><th>CÓDIGO</th><th>CLIENTE</th><th>DRON</th><th>FECHA</th><th>ESTADO</th><th>ACCIONES</th></tr></thead><tbody id="flight-table"></tbody></table></div></article>
+            </section>
+
+            <!-- Gestión de clientes -->
+            <section class="view" id="view-clients">
+                <div class="page-heading"><div><p class="eyebrow">RELACIONES COMERCIALES</p><h1>Clientes</h1><p class="muted">Consulta y registra clientes de SkyRegister.</p></div><button class="button primary" data-action="new-client">＋ Nuevo cliente</button></div>
+                <div class="toolbar"><input class="search-input" id="client-search" type="search" placeholder="Buscar cliente..." aria-label="Buscar clientes"></div>
+                <article class="panel"><div class="table-wrap"><table><thead><tr><th>NOMBRE</th><th>CORREO</th><th>TELÉFONO</th><th>ACCIONES</th></tr></thead><tbody id="client-table"></tbody></table></div></article>
+            </section>
+
+            <!-- Reportes -->
+            <section class="view" id="view-reports">
+                <div class="page-heading"><div><p class="eyebrow">ANÁLISIS DE ACTIVIDAD</p><h1>Reportes</h1><p class="muted">Indicadores generales del entorno demostrativo.</p></div><button class="button secondary" id="export-report">↓ Exportar CSV</button></div>
+                <div class="stats-grid report-stats">
+                    <article class="stat-card"><p>Total de drones</p><strong id="report-drones">8</strong><small class="muted">Registrados</small></article>
+                    <article class="stat-card"><p>Total de vuelos</p><strong id="report-flights">24</strong><small class="muted">Programados y ejecutados</small></article>
+                    <article class="stat-card"><p>Clientes</p><strong id="report-clients">12</strong><small class="muted">En la plataforma</small></article>
+                </div>
+                <article class="panel"><div class="panel-heading"><div><h2>Distribución de vuelos</h2><p class="muted">Estado de las operaciones registradas</p></div></div><div id="flight-bars" class="bars"></div></article>
+            </section>
+
+            <!-- Perfil -->
+            <section class="view" id="view-profile">
+                <div class="page-heading"><div><p class="eyebrow">CUENTA</p><h1>Mi perfil</h1><p class="muted">Información del usuario que ha iniciado sesión.</p></div></div>
+                <article class="panel profile-panel">
+                    <div class="profile-avatar">CZ</div><div><h2>Cristian Zanabria Barona</h2><p class="muted">Administrador · SkyRegister</p><span class="badge success">Cuenta activa</span></div>
+                    <div class="profile-details"><div><small>Correo electrónico</small><b>cristian@skyregister.local</b></div><div><small>Rol</small><b>Administrador</b></div><div><small>Proyecto</small><b>SkyRegister</b></div><div><small>Versión</small><b>1.0.0</b></div></div>
+                </article>
+            </section>
+        </section>
+        <footer class="footer">© 2026 SkyRegister · Proyecto formativo SENA ADSO</footer>
+    </main>
+
+    <!-- Ventana modal reutilizable para los formularios -->
+    <div class="modal-backdrop" id="modal-backdrop" aria-hidden="true">
+        <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <div class="modal-heading"><div><p class="eyebrow">GESTIÓN DE INFORMACIÓN</p><h2 id="modal-title">Nuevo registro</h2></div><button class="close-button" id="modal-close" aria-label="Cerrar">×</button></div>
+            <form id="record-form"><div id="form-fields" class="form-fields"></div><div class="modal-actions"><button type="button" class="button secondary" id="cancel-modal">Cancelar</button><button type="submit" class="button primary">Guardar registro</button></div></form>
+        </section>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="js/app.js"></script>
+</body>
+</html>
